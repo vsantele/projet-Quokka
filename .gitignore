@@ -1,1 +1,4 @@
 data/raw
+qdrant_storage
+convert/local_cache
+__pycache__
