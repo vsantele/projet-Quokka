@@ -1,5 +1,0 @@
-sentence-transformers
-qdrant-client
-polars
-folium
-tqdm

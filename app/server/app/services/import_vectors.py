@@ -2,8 +2,6 @@ import numpy as np
 import polars as pl
 from qdrant_client import QdrantClient, models
 
-qdrant_path = "./data/transformed/qdrant"
-
 
 def add_loc(row):
     row["location"] = {"lat": row["lat"], "lon": row["lon"]}
@@ -13,7 +11,7 @@ def add_loc(row):
 df_geo = pl.read_parquet("./data/transformed/poi_clean_category_geo.parquet")
 df = df_geo.drop(["type", "geometry"])
 
-client = QdrantClient(path=qdrant_path)
+client = QdrantClient("localhost", port=6333)
 vectors = np.load("./poi_vectors.npy", allow_pickle=False)
 
 client.recreate_collection(
