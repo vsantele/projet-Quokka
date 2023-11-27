@@ -1,17 +1,20 @@
-import torch
 from qdrant_client import QdrantClient, models
 from sentence_transformers import SentenceTransformer
-
-device = "cuda" if torch.cuda.is_available() else "cpu"
+from app.utils.settings import settings
 
 
 class NeuralSearcher:
-    def __init__(self, collection_name):
+    def __init__(self, collection_name=settings.qdrant_collection):
         self.collection_name = collection_name
         # Initialize encoder model
-        self.model = SentenceTransformer("all-MiniLM-L6-v2", device=device)
+        self.model = SentenceTransformer(
+            "all-MiniLM-L6-v2",
+            device=settings.device,
+        )
         # initialize Qdrant client
-        self.qdrant_client = QdrantClient("localhost", port=6333)
+        self.qdrant_client = QdrantClient(
+            settings.qdrant_host, port=settings.qdrant_port
+        )
 
     def search(
         self,
@@ -28,6 +31,7 @@ class NeuralSearcher:
             pos (list[int]): List of positive vector ids.
             neg (list[int]): List of negative vector ids.
             around (tuple[float, float]): Tuple of latitude (0) and longitude (1) representing the center of the search radius.
+            radius (float, optional): Radius of the search area in meters. Defaults to 1000.0.
 
         Returns:
             list: List of payloads associated with the closest vectors found.

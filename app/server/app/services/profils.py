@@ -1,42 +1,11 @@
-from enum import Enum
-
-
-class Profils(Enum):
-    nature = "Fan de la nature"
-    history_medieval = "Historique (médieval)"
-    monument = "Monument typique (Grand lieu)"
-    history_19_20 = "Historique (19,20ème)"
-    artistic = "Artistique"
-    antiquity = "Antiquité"
-    museum = "Fan de musée"
-    history = "Histoire (général)"
-    religious = "Religieux"
-
-
-class Profil:
-    def __init__(self, id_profil: Profils, name: str, pos: list[int], neg: list[int]):
-        self.id_profil = id_profil
-        self.name = name
-        self.pos = pos
-        self.neg = neg
-
-
-def new_profile(
-    id_profil: Profils, name: str, pos: list[int], neg: list[int]
-) -> Profil:
-    return Profil(
-        id_profil=id_profil,
-        name=name,
-        pos=pos,
-        neg=neg,
-    )
+from app.models.profils import Profil, Profils
 
 
 def get_profiles() -> list[Profil]:
     return [
         Profil(
             id_profil=Profils.nature,
-            name=Profils.nature.value,
+            name="Fan de la nature",
             pos=[
                 161902431,
                 6256757776,
@@ -59,7 +28,7 @@ def get_profiles() -> list[Profil]:
         ),
         Profil(
             id_profil=Profils.history_medieval,
-            name=Profils.history_medieval.value,
+            name="Historique (médieval)",
             pos=[
                 9964615559,
                 2080454089,
@@ -76,13 +45,13 @@ def get_profiles() -> list[Profil]:
         ),
         Profil(
             id_profil=Profils.monument,
-            name=Profils.monument.value,
+            name="Monument typique (Grand lieu)",
             pos=[6580307576, 249292417, 267878387],
             neg=[8731063849, 8731063849, 6635074831, 9767828163],
         ),
         Profil(
             id_profil=Profils.history_19_20,
-            name=Profils.history_19_20.value,
+            name="Historique (19,20ème)",
             pos=[
                 267878387,
                 6264550437,
@@ -107,7 +76,7 @@ def get_profiles() -> list[Profil]:
         ),
         Profil(
             id_profil=Profils.artistic,
-            name=Profils.artistic.value,
+            name="Artistique",
             pos=[
                 2514192427,
                 9663434784,
@@ -126,13 +95,13 @@ def get_profiles() -> list[Profil]:
         ),
         Profil(
             id_profil=Profils.antiquity,
-            name=Profils.antiquity.value,
+            name="Antiquité",
             pos=[4729709152, 874341418, 9864187809, 34050692],
             neg=[267878387, 9609413254, 271394429, 6635074831, 6580307576],
         ),
         Profil(
             id_profil=Profils.museum,
-            name=Profils.museum.value,
+            name="Fan de musée",
             pos=[
                 34050681,
                 393969161,
@@ -148,7 +117,7 @@ def get_profiles() -> list[Profil]:
         ),
         Profil(
             id_profil=Profils.history,
-            name=Profils.history.value,
+            name="Histoire (général)",
             pos=[
                 251316201,
                 252382829,
@@ -161,7 +130,7 @@ def get_profiles() -> list[Profil]:
         ),
         Profil(
             id_profil=Profils.religious,
-            name=Profils.religious.value,
+            name="Religieux",
             pos=[
                 251466390,
                 304850843,

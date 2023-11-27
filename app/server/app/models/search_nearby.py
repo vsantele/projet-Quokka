@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from app.services.profils import Profils
+from app.models.profils import Profils
 
 
 class SearchNearbyBody(BaseModel):
