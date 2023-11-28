@@ -1,8 +1,9 @@
 from fastapi import FastAPI, HTTPException
 from app.models.search_nearby import SearchNearbyBody
+from app.models.profils import Profil, Profils
 from app.utils.settings import settings
 from app.services.neural_searcher import NeuralSearcher
-from app.services.profils import get_profil
+from app.services.profils import get_profil, get_profiles
 
 app = FastAPI()
 
@@ -30,3 +31,8 @@ async def nearby(request: SearchNearbyBody):
         radius=request.radius,
     )
     return res
+
+
+@app.get("/profils", response_model=list[Profil])
+async def profils():
+    return get_profiles()

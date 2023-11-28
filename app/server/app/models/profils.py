@@ -1,5 +1,7 @@
 from enum import Enum
 
+from pydantic import BaseModel
+
 
 class Profils(Enum):
     nature = "nature"
@@ -13,7 +15,12 @@ class Profils(Enum):
     religious = "religious"
 
 
-class Profil:
+class Profil(BaseModel):
+    id_profil: Profils
+    name: str
+    pos: list[int]
+    neg: list[int]
+
     def __init__(
         self,
         id_profil: Profils,
