@@ -16,6 +16,50 @@ class NeuralSearcher:
             settings.qdrant_host, port=settings.qdrant_port
         )
 
+    def __del__(self):
+        """Close the connection to qdrant_client when the class is deleted."""
+        self.qdrant_client.close()
+
+    def init_poi(self, pos: list[int], neg: list[int]):
+        """
+        Initialize the collection with positive and negative vector ids.
+
+        Args:
+            pos (list[int]): List of positive vector ids.
+            neg (list[int]): List of negative vector ids.
+
+        Returns:
+            list: List of payloads associated with the closest vectors found.
+        """
+        # Use `vector` for search for closest vectors in the collection
+        search_result = self.qdrant_client.recommend(
+            collection_name=self.collection_name,
+            positive=pos,
+            negative=neg,
+            strategy=models.RecommendStrategy.BEST_SCORE,
+            query_filter=models.Filter(
+                must_not=[
+                    models.FieldCondition(
+                        key="category",
+                        match=models.MatchValue(
+                            value="amenity",
+                        ),
+                    ),
+                    models.IsNullCondition(
+                        is_null=models.PayloadField(
+                            key="image",
+                        )
+                    ),
+                ],
+            ),
+            limit=5,
+        )
+        # `search_result` contains found vector ids with similarity scores
+        # along with the stored payload
+        # In this function you are interested in payload only
+        payloads = [hit.payload for hit in search_result]
+        return payloads
+
     def search(
         self,
         pos: list[int],
@@ -41,7 +85,7 @@ class NeuralSearcher:
             collection_name=self.collection_name,
             positive=pos,
             negative=neg,
-            strategy=models.RecommendStrategy.AVERAGE_VECTOR,
+            strategy=models.RecommendStrategy.BEST_SCORE,
             query_filter=models.Filter(
                 must=[
                     models.FieldCondition(

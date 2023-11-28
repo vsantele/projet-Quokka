@@ -1,4 +1,4 @@
-from app.models.profils import Profil, Profils
+from ..models.profils import Profil, Profils
 
 
 def get_profiles() -> list[Profil]:
@@ -139,6 +139,7 @@ def get_profiles() -> list[Profil]:
             ],
             neg=[251316201],
         ),
+        Profil(id_profil=Profils.other, name="Autre", pos=[], neg=[]),
     ]
 
 

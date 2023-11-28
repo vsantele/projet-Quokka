@@ -36,3 +36,10 @@ async def nearby(request: SearchNearbyBody):
 @app.get("/profils", response_model=list[Profil])
 async def profils():
     return get_profiles()
+
+
+@app.get("/init")
+async def init(profil_id: Profils):
+    profil = get_profil(profil_id)
+    init_pois = ns.init_poi(pos=profil.pos, neg=profil.neg)
+    return init_pois

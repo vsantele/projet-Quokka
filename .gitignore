@@ -4,3 +4,4 @@ convert/local_cache
 __pycache__
 data/transformed/qdrant
 qdrant
+data/frwiki

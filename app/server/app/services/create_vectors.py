@@ -21,12 +21,13 @@ def convert(row):
             "name: " + row["name"],
             "alt_name: " + not_null(row["alt_name"]),
             "description: " + not_null(row["description"]),
+            "operator: " + not_null(row["operator"]),
+            "old_name: " + not_null(row["old_name"]),
         ]
     )
 
 
-df_geo = pl.read_parquet("./data/transformed/poi_clean_category_geo.parquet")
-df = df_geo.drop(["type", "geometry"])
+df = pl.read_parquet("./data/transformed/poi_clean_category_all.parquet")
 print(df.head())
 vectors = encoder.encode(
     [convert(row) for row in df.iter_rows(named=True)],

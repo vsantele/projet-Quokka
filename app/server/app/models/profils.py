@@ -13,6 +13,7 @@ class Profils(Enum):
     museum = "museum"
     history = "history"
     religious = "religious"
+    other = "other"
 
 
 class Profil(BaseModel):
@@ -20,15 +21,3 @@ class Profil(BaseModel):
     name: str
     pos: list[int]
     neg: list[int]
-
-    def __init__(
-        self,
-        id_profil: Profils,
-        name: str,
-        pos: list[int],
-        neg: list[int],
-    ):
-        self.id_profil = id_profil
-        self.name = name
-        self.pos = pos
-        self.neg = neg
