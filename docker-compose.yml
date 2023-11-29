@@ -6,3 +6,12 @@ services:
       - 6334:6334
     volumes:
       - ./qdrant/storage:/qdrant/storage
+  quokka-server:
+    image: quokka-server:latest
+    ports:
+      - 8000:8000
+    environment:
+      - qdrant_host=qdrant
+      - qdrant_port=6333
+      - qdrant_collection=poi
+      - device=cpu
