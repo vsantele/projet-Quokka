@@ -8,11 +8,11 @@ def add_loc(row):
     return row
 
 
-df_geo = pl.read_parquet("./data/transformed/poi_clean_category_geo.parquet")
+df_geo = pl.read_parquet("../../data/transformed/poi_clean_category_geo.parquet")
 df = df_geo.drop(["type", "geometry"])
 
 client = QdrantClient("localhost", port=6333)
-vectors = np.load("./poi_vectors.npy", allow_pickle=False)
+vectors = np.load("./data/poi_vectors.npy", allow_pickle=False)
 
 client.recreate_collection(
     collection_name="poi",

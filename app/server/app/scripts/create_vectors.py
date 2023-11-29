@@ -27,7 +27,7 @@ def convert(row):
     )
 
 
-df = pl.read_parquet("./data/transformed/poi_clean_category_all.parquet")
+df = pl.read_parquet("../../data/transformed/poi_clean_category_all.parquet")
 print(df.head())
 vectors = encoder.encode(
     [convert(row) for row in df.iter_rows(named=True)],
@@ -37,4 +37,4 @@ vectors = encoder.encode(
 )
 
 
-np.save("./poi_vectors.npy", vectors, allow_pickle=False)
+np.save("./data/poi_vectors.npy", vectors, allow_pickle=False)

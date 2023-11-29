@@ -6,7 +6,7 @@ from ..models.profils import Profils
 from surprise import SVD, Dataset, Reader
 
 from ..models.user_interaction import UserInteraction
-from .profils import get_profiles
+from ..services.profils import get_profiles
 from nanoid import generate
 import random
 import time

@@ -2,7 +2,7 @@ import operator
 from fastapi import FastAPI, HTTPException
 from app.models.search_nearby import SearchNearbyBody
 from app.models.profils import Profil, Profils
-from app.server.app.services.collaborative_search import CollaborativeSearch
+from app.services.collaborative_search import CollaborativeSearch
 from app.utils.settings import settings
 from app.services.neural_searcher import NeuralSearcher
 from app.services.profils import get_profil, get_profiles
