@@ -20,7 +20,7 @@ class NeuralSearcher:
         """Close the connection to qdrant_client when the class is deleted."""
         self.qdrant_client.close()
 
-    def init_poi(self, pos: list[int], neg: list[int]):
+    def init_poi(self, pos: list[int], neg: list[int], limit: int = 5):
         """
         Initialize the collection with positive and negative vector ids.
 
@@ -52,12 +52,12 @@ class NeuralSearcher:
                     ),
                 ],
             ),
-            limit=5,
+            limit=limit,
         )
         # `search_result` contains found vector ids with similarity scores
         # along with the stored payload
         # In this function you are interested in payload only
-        payloads = [hit.payload for hit in search_result]
+        payloads = [hit.payload for hit in search_result if hit.payload is not None]
         return payloads
 
     def search(
@@ -66,6 +66,7 @@ class NeuralSearcher:
         neg: list[int],
         around: tuple[float, float],
         radius: float = 1000.0,
+        limit: int = 5,
     ):
         """
         Search for closest vectors in the collection based on positive
@@ -108,10 +109,10 @@ class NeuralSearcher:
                     )
                 ],
             ),
-            limit=5,  # 5 the most closest results is enough
+            limit=limit,  # 5 the most closest results is enough
         )
         # `search_result` contains found vector ids with similarity scores
         # along with the stored payload
         # In this function you are interested in payload only
-        payloads = [hit.payload for hit in search_result]
+        payloads = [hit.payload for hit in search_result if hit.payload is not None]
         return payloads

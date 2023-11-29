@@ -4,6 +4,8 @@ from surprise import SVD
 
 class CollaborativeSearch:
     def __init__(self) -> None:
-        file = open("./data/algoSVD.pkl", "rb")
-        self.model = pickle.load(file)
-        file.close()
+        with open("./data/algoSVD.pkl", "rb") as file:
+            self.model: SVD = pickle.load(file)
+
+    def predict(self, uid: str, poi_id: int) -> float:
+        return self.model.predict(uid, poi_id).est

@@ -9,3 +9,4 @@ class SearchNearbyBody(BaseModel):
     profil: Profils
     pos: list[int] = []
     neg: list[int] = []
+    user: str = None
