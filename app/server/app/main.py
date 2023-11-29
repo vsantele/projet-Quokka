@@ -37,11 +37,11 @@ async def nearby(request: SearchNearbyBody):
         radius=request.radius,
         limit=30,
     )
-    res = []
+
     for poi in pois:
         rating = svd.predict(request.user, poi["id"])
         poi["est"] = rating
-    return sorted(res, key=operator.itemgetter("est"), reverse=True)[:5]
+    return sorted(pois, key=operator.itemgetter("est"), reverse=True)[:5]
 
 
 @app.get("/profils", response_model=list[Profil])
