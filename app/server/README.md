@@ -27,6 +27,18 @@ docker compose up qdrant -d
 cd app/server
 ```
 
+- [Optionnal] Create a virtual environment
+
+```bash
+python -m venv venv
+```
+
+- Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
 - Create vectors for QDrant
 
 ```bash
@@ -45,7 +57,7 @@ python -m app.scripts.import_vectors
 python -m app.scripts.init_collaborative
 ```
 
-- Build the project
+- [Optionnal] Build the project if you want to use docker
 
 ```bash
 docker build -t quokka-server:latest .
@@ -53,9 +65,32 @@ docker build -t quokka-server:latest .
 
 ## Start server
 
+### Docker
+
 - Make sure you are in the root folder
-- Launch docker compose
+- Launch docker compose if you build the quokka-server image
 
 ```bash
 docker compose up -d
+```
+
+### Python
+
+- Make sure you are in the root folder
+- Launch the database
+
+```bash
+docker compose up qdrant -d
+```
+
+- Go to `app/server`
+
+```bash
+cd app/server
+```
+
+- Launch the server
+
+```bash
+uvicorn app.main:app --reload
 ```
