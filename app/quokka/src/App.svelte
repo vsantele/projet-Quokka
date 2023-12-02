@@ -10,7 +10,7 @@
   let selectedCityCoordinates: LatLngTuple = [50.465803, 4.857632]
   let selectedCityName: CityName = "Namur"
 
-  let selectedProfile: string = "nature"
+  let selectedProfile: string = "museum"
 
   let pois: Poi[] = []
   let posPoiIds: number[] = []
