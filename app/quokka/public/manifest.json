@@ -1,0 +1,62 @@
+{
+  "name": "Quokka",
+  "short_name": "Quokka",
+  "start_url": "https://quokka.vsantele.dev",
+  "display": "standalone",
+  "description": "Generate a personalized city-trip in belgium with Quokka",
+  "lang": "fr",
+  "dir": "ltr",
+  "theme_color": "#97d4e4",
+  "background_color": "#242424",
+  "orientation": "landscape-primary",
+  "icons": [
+    {
+      "src": "icons/manifest-icon-192.maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/manifest-icon-192.maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://www.pwabuilder.com/assets/screenshots/screen1.png",
+      "sizes": "2880x1800",
+      "type": "image/png",
+      "description": "A screenshot of the home page"
+    }
+  ],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Ouvrir le site",
+      "short_name": "Ouvrir",
+      "description": "Ouvrir le site quokka",
+      "url": "/",
+      "icons": [
+        {
+          "src": "icons/manifest-icon-192.maskable.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "display_override": ["window-controls-overlay"]
+}
