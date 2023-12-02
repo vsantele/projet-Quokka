@@ -28,15 +28,15 @@
     | <b>Sous cat:</b> <span>{poi.sub_category ?? ""}</span>
   </p>
   <div>
+    <button on:click={() => dispatch("go")} style="display:inline;width:auto"
+      >Choisir
+    </button>
     <button
       on:click={() => dispatch("select")}
       style="display:inline;width:auto"
     >
-      Choisir</button
+      Y aller</button
     >
-    <button on:click={() => dispatch("go")} style="display:inline;width:auto"
-      >Y aller
-    </button>
     <button
       disabled={isLiked !== 0}
       on:click={() => handleLike("like")}
