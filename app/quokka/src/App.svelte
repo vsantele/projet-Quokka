@@ -126,8 +126,8 @@
     </select>
   </label>
 
-  <div class="wrapper">
-    <div class="card" style="width:60vw;flex: 2;">
+  <div class="wrapper" style="margin-top: 1rem;">
+    <div class="card" style="width:55vw;flex: 2; margin-right:1em;">
       <Map
         center={selectedCityCoordinates}
         user={userCoordinates}
@@ -136,7 +136,7 @@
         {radius}
       />
     </div>
-    <div style="flex:1;height:100%;">
+    <div class="card" style="flex:1; overflow:auto">
       <div
         style="display:flex; flex-direction:column; jutify-content:flex-start; "
       >

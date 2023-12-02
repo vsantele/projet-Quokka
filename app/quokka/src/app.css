@@ -35,7 +35,6 @@ h1 {
 }
 
 .card {
-  padding: 2em;
   height: 80vh;
 }
 
@@ -49,6 +48,7 @@ h1 {
 #app {
   margin: 0 auto;
   padding: 2rem;
+  padding-bottom: 0;
 }
 
 button {
