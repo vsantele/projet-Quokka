@@ -8,8 +8,10 @@ services:
       - ./qdrant/storage:/qdrant/storage
   quokka-server:
     image: quokka-server:latest
+    depends_on:
+      - qdrant
     ports:
-      - 8000:8000
+      - 8000:80
     environment:
       - qdrant_host=qdrant
       - qdrant_port=6333
