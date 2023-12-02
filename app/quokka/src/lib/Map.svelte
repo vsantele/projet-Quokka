@@ -27,13 +27,7 @@
   }
 
   $: if (line && map) {
-    if (lineLayers) {
-      lineLayers.remove()
-    }
-    lineLayers = createLines(line)
-    if (lineLayers) {
-      lineLayers.addTo(map)
-    }
+    updateLine(line)
   }
 
   $: if (markers && map) {
@@ -48,8 +42,8 @@
     markerLayers.addTo(map)
   }
 
-  $: if (radius && map && center && centerMarker) {
-    updateCircle(center, radius)
+  $: if (radius && map && user && centerMarker) {
+    updateCircle(user, radius)
   }
 
   function updateCircle(center: LatLngExpression, radius: number) {
@@ -75,6 +69,16 @@
       centerMarker = L.marker(center, {
         icon: new L.Icon({ iconUrl: "/quokka.png", iconSize: [24, 24] }),
       }).addTo(map)
+    }
+  }
+
+  function updateLine(line: GeoJSON.Feature<GeoJSON.LineString>) {
+    if (lineLayers) {
+      lineLayers.remove()
+    }
+    lineLayers = createLines(line)
+    if (lineLayers && map) {
+      lineLayers.addTo(map)
     }
   }
 

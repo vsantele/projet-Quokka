@@ -72,13 +72,7 @@
   }
 
   function handleGetPath(to: Poi) {
-    let from: LatLngTuple = [
-      selectedCityCoordinates[0],
-      selectedCityCoordinates[1],
-    ]
-    if (selectPoi !== null) {
-      from = [selectPoi.lon, selectPoi.lat]
-    }
+    let from: LatLngTuple = userCoordinates
     fetch(new URL(`/path`, import.meta.env.VITE_BASE_URL_API), {
       method: "POST",
       headers: {
