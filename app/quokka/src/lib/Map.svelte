@@ -2,14 +2,19 @@
   import "leaflet/dist/leaflet.css"
   import "leaflet"
   import L, { type LatLngExpression, type LatLngTuple } from "leaflet"
+  import quokkaImg from "../assets/quokka.png"
+  import type { Poi } from "../config/pois"
+  import { createEventDispatcher } from "svelte"
 
   export let center: LatLngExpression = [50.465803, 4.857632]
   export let line: GeoJSON.Feature<GeoJSON.LineString> | null = null
   export let markers: LatLngExpression[] = []
+  export let pois: Poi[] = []
   export let user: LatLngExpression = [50.465803, 4.857632]
   export let radius: number = 1000
 
   let markerLayers: L.LayerGroup | null = null
+  let poisLayers: L.LayerGroup | null = null
   let lineLayers: L.Polyline | null = null
   let circleLayers: L.Circle | null = null
 
@@ -18,6 +23,7 @@
   let centerMarker: L.Marker | null = null
 
   const initialView: LatLngTuple = [50.465803, 4.857632]
+  const dispatch = createEventDispatcher()
 
   $: if (center && map) {
     setCenter(center)
@@ -42,6 +48,12 @@
     markerLayers.addTo(map)
   }
 
+  $: if (pois && map) {
+    for (const poi of pois) {
+      createPoi(poi)
+    }
+  }
+
   $: if (radius && map && user && centerMarker) {
     updateCircle(user, radius)
   }
@@ -53,10 +65,11 @@
     } else if (map) {
       circleLayers = L.circle(center, {
         color: "#E4E",
-        opacity: 0.2,
+        opacity: 0.6,
         radius: radius,
         weight: 1,
         stroke: true,
+        fillOpacity: 0.05,
       }).addTo(map)
     }
   }
@@ -67,8 +80,9 @@
       map!.panTo(center)
     } else if (map) {
       centerMarker = L.marker(center, {
-        icon: new L.Icon({ iconUrl: "/quokka.png", iconSize: [24, 24] }),
+        icon: new L.Icon({ iconUrl: quokkaImg, iconSize: [24, 24] }),
       }).addTo(map)
+      centerMarker.setZIndexOffset(1000)
     }
   }
 
@@ -90,14 +104,27 @@
       maxZoom: 18,
     }).addTo(m)
 
+    poisLayers = L.layerGroup(undefined)
+    poisLayers.addTo(m)
+
     return m
   }
 
   function createMarker(loc: LatLngExpression) {
-    let count = Math.ceil(Math.random() * 25)
     let marker = L.marker(loc)
 
     return marker
+  }
+
+  function createPoi(poi: Poi) {
+    if (poisLayers) {
+      const m = createMarker([poi.lat, poi.lon])
+      m.bindPopup(`<span>${poi.name}</span>`)
+      m.addEventListener("click", () => {
+        dispatch("select", poi)
+      })
+      poisLayers.addLayer(m)
+    }
   }
 
   function createLines(line: GeoJSON.Feature<GeoJSON.LineString>) {
@@ -105,8 +132,10 @@
       return null
     }
     return L.polyline(line.geometry.coordinates as LatLngExpression[], {
-      color: "#E4E",
-      opacity: 0.5,
+      color: "#97d4e4",
+      opacity: 1,
+      stroke: true,
+      weight: 6,
     })
   }
 

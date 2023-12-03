@@ -1,6 +1,7 @@
 import operator
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from app.models.search_nearby import SearchNearbyBody
 from app.models.profils import Profil, Profils
 from app.services.path import min_path
@@ -23,6 +24,12 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+)
+
+app.mount(
+    "/app",
+    StaticFiles(directory=settings.front_path, html=True),
+    name="static",
 )
 
 ns = NeuralSearcher(collection_name=settings.qdrant_collection)

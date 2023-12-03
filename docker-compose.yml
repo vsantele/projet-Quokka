@@ -17,3 +17,4 @@ services:
       - qdrant_port=6333
       - qdrant_collection=poi
       - device=cpu
+      - front_path="/quokka"

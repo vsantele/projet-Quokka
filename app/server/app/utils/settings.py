@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     qdrant_port: int = 6333
     qdrant_collection: str = "poi"
     device: str = "cpu"
+    front_path: str = "../../dist/quokka"
 
 
 settings = Settings()

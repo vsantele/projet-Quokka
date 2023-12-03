@@ -6,6 +6,7 @@
   import type { Profil } from "./config/profils"
   import type { Poi } from "./config/pois"
   import PoiCard from "./lib/PoiCard.svelte"
+  import quokkaImg from "./assets/quokka.png"
 
   let selectedCityCoordinates: LatLngTuple = [50.465803, 4.857632]
   let selectedCityName: CityName = "Namur"
@@ -19,6 +20,7 @@
   let radius: number = 1000
 
   let selectPoi: Poi | null = null
+  let highlightPoi: Poi | null = null
   let path: GeoJSON.Feature<GeoJSON.LineString> | null = null
   let userCoordinates: LatLngTuple = [50.465803, 4.857632]
 
@@ -106,7 +108,7 @@
 
 <main>
   <img
-    src="/quokka.png"
+    src={quokkaImg}
     style="width:5rem; aspect-ratio:1; display:inline"
     alt=""
   />
@@ -131,9 +133,12 @@
       <Map
         center={selectedCityCoordinates}
         user={userCoordinates}
-        markers={pois.map((poi) => [poi.lat, poi.lon])}
+        {pois}
         line={path}
         {radius}
+        on:select={($event) => {
+          highlightPoi = $event.detail
+        }}
       />
     </div>
     <div class="card" style="flex:1; overflow:auto">
@@ -176,7 +181,7 @@
           Obtenir les POIs
         </button>
         <div style="overflow: auto;">
-          {#each pois as poi}
+          {#each pois as poi (poi.id)}
             <PoiCard
               {poi}
               on:select={() => {
@@ -191,6 +196,7 @@
               on:dislike={() => {
                 onPoiDislike(poi)
               }}
+              isHighlighted={poi.id === highlightPoi?.id}
             />
           {/each}
         </div>

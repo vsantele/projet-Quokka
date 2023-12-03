@@ -3,6 +3,7 @@
   import { createEventDispatcher } from "svelte"
 
   export let poi: Poi
+  export let isHighlighted: boolean = false
 
   const dispatch = createEventDispatcher()
 
@@ -14,7 +15,7 @@
   }
 </script>
 
-<article>
+<article class={isHighlighted ? "isHighlighted" : ""}>
   <h5>{poi.name}</h5>
   {#if poi.image && !poi.image.startsWith("https://photos.app.goo.gl/")}
     <img src={poi.image} alt={poi.name} style="height: 5rem;" />
@@ -29,7 +30,7 @@
   </p>
   <div>
     <button on:click={() => dispatch("go")} style="display:inline;width:auto"
-      >Choisir
+      >Itinéraire
     </button>
     <button
       on:click={() => dispatch("select")}
@@ -53,3 +54,9 @@
     >
   </div>
 </article>
+
+<style>
+  .isHighlighted {
+    border: 1px solid #97d4e4;
+  }
+</style>
